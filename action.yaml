@@ -5,17 +5,18 @@ branding:
   icon: "gift"
   color: "purple"
 
-# ACTION CONFIG
 on:
   push:
     branches:
       - main
+
 env:
   AWS_REGION: us-east-1 # Change to yours
   ENTRY_FILE: main.go # Change to yours
+  FUNCTION_NAME: ${GITHUB_REPOSITORY#*/} # Change to yours
     
 permissions:
-  contents: write-all
+  contents: read
 
 jobs:
   deploy:
@@ -45,7 +46,7 @@ jobs:
         run: |
           GOOS=linux GOARCH=amd64 go build -o bootstrap ${{ env.ENTRY_FILE }}
           chmod +x bootstrap
-          zip -f deploy.zip bootstrap
+          zip deploy.zip bootstrap
       
       - name: Check if lambda exists
         id: lambda_status
@@ -55,12 +56,12 @@ jobs:
       - name: Create Function
         if: steps.lambda_status.outcome != 'success'
         run: |
-         aws lambda create-function \
-         --function-name ${{ env.FUNCTION_NAME }} \
-         --zip-file fileb://deploy.zip \
-         --handler bootstrap \
-         --runtime provided.al2023 \
-         --role ${{ secrets.AWS_ROLE }} > /dev/null 2>&1
+          aws lambda create-function \
+          --function-name ${{ env.FUNCTION_NAME }} \
+          --zip-file fileb://deploy.zip \
+          --handler bootstrap \
+          --runtime provided.al2023 \
+          --role ${{ secrets.AWS_ROLE }} > /dev/null 2>&1
 
       - name: Update Function
         if: steps.lambda_status.outcome == 'success'
