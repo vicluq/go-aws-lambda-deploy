@@ -1,9 +1,9 @@
-name: deploy-golang-aws-lambda
+name: Deploy Golang AWS Lambda
 description: This action allows users o deploy golang lambda applications on push
 author: Victoria Luquet
 branding:
-  icon: "gift"
-  color: "purple"
+  icon: "box"
+  color: "green"
 
 on:
   push:
