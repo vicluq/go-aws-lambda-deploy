@@ -14,7 +14,7 @@ These are the AWS Secret Key, Key ID and role, which must be added as a **reposi
 ## Environment Variables
  - `AWS_REGION`: your-aws-region, default: us-east-1
  - `ENTRY_FILE`: your-go-entry-file, default: main.go
- - `FUNCTION_NAME`: your-lambda-function-name
+ - `FUNCTION_NAME`: your-lambda-function-name, default: the repository name
 
 The entry file should be the one containing your `lambda.Start()` call.
 
