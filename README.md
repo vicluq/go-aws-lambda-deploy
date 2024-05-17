@@ -4,6 +4,8 @@ This action will provide a deploy interface to your Golang AWS lambda code. It c
 
 You can edit the workflow file to add more configuration flags to your lambda, such as VPC, subnets, etc.
 
+This action already checks out your code, sets up the golang environment, configures the AWS CLI and deploys it. Your only have to set the Envs and Secrets.
+
 ## Secrets
 These are the AWS Secret Key, Key ID and role, which must be added as a **repository secret**.
 
